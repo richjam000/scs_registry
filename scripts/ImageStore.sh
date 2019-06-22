@@ -6,7 +6,7 @@ grep -v ^# ./ImageStore.conf | while read DETAIL ; do
    EXTERNAL_TAG=$(echo "$DETAIL" | cut -d '#' -f 3)
    INTERNAL_TAG=$(echo "$DETAIL" | cut -d '#' -f 4)
    INTERNAL_TAG=${INTERNAL_TAG:-$EXTERNAL_TAG} # if blank will be same as external tag
-   IMAGE_NAME=$(echo "$EXTERNAL_IMAGE" | cut -d '/' -f 2 )
+   IMAGE_NAME=$(echo "$EXTERNAL_IMAGE" | awk -F/ '{print $NF}')
    docker pull "$EXTERNAL_IMAGE:$EXTERNAL_TAG"
    IMAGE_ID=$(docker image ls "$EXTERNAL_IMAGE:$EXTERNAL_TAG" -q)
    docker tag $IMAGE_ID "$INTERNAL_REGISTRY/$SUPPLIER/$IMAGE_NAME:$INTERNAL_TAG"

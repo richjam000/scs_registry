@@ -1,0 +1,13 @@
+# Can be used for copying files to a volumes
+# eg:
+#!/bin/bash
+PROGDIR=$(dirname $0)
+
+docker container create --name scs_gitlab_copytmp \
+-v scs_gitlab_conf:/conf \
+-v scs_gitlab_assets:/assets \
+localhost:5000/scsuk.net/scratch:1.0
+
+docker cp "$PROGDIR"/../config/gitlab.rb scs_gitlab_copytmp:/conf
+docker cp "$PROGDIR"/../config/sshd_config scs_gitlab_copytmp:/assets
+docker rm scs_gitlab_copytmp
