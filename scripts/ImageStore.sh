@@ -26,6 +26,11 @@ grep -v ^# ./ImageStore.conf | while read DETAIL ; do
    set -x
    docker push "$GITLAB_REGISTRY_PROJECT/$SUPPLIER/$IMAGE_NAME:$INTERNAL_TAG"
    set +x
+   echo "Clear down images - tidy up"
+   set -x
+   docker image remove "$EXTERNAL_IMAGE:$EXTERNAL_TAG"
+   docker image remove "$GITLAB_REGISTRY_PROJECT/$SUPPLIER/$IMAGE_NAME:$INTERNAL_TAG"
+   set +x
    echo '------------------------------------'
 done 
 
