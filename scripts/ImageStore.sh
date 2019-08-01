@@ -1,5 +1,6 @@
 #!/bin/bash
 GITLAB_REGISTRY=gitlab.scsuk.net:5005
+echo "Login GITLAB_REGISTRY($GITLAB_REGISTRY)"
 docker login "$GITLAB_REGISTRY"
 echo '##################################################################'
 echo "Pulling external images and storing them locally at $GITLAB_REGISTRY"
